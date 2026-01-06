@@ -1,0 +1,29 @@
+-- GOLD :
+-- Create GOLD tables 
+CREATE TABLE GOLD_DAILY_BOOKING AS
+SELECT
+    check_in_date AS date,
+    COUNT(*) AS total_booking,
+    SUM(total_amount) AS total_revenue
+FROM SILVER_HOTEL
+GROUP BY check_in_date
+ORDER BY date;
+
+CREATE TABLE GOLD_HOTEL_CITY_SALES AS
+SELECT
+    hotel_city,
+    SUM(total_amount) AS total_revenue
+FROM SILVER_HOTEL
+GROUP BY hotel_city
+ORDER BY total_revenue DESC;
+
+CREATE TABLE GOLD_HOTEL AS
+SELECT
+    *
+FROM SILVER_HOTEL;
+
+SELECT * FROM GOLD_DAILY_BOOKING LIMIT 10;
+
+SELECT * FROM GOLD_HOTEL_CITY_SALES LIMIT 10;
+
+SELECT * FROM  GOLD_HOTEL LIMIT 10;
